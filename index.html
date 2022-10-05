@@ -2,15 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" type="text/css" href="app.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <title>Title</title>
 </head>
 <body>
     <div id ="app">
         <section class="carousel">
-            <div class="carousel__main"></div>
+
+            <div class="carousel__main">
+                <transition name="active">
+                    <div class="carousel__main"
+                         :key="images[active].id"
+                         v-show="active === images[active].id">
+                        <img :src="images[active].img">
+                    </div>
+                </transition>
+            </div>
             <div @click="prev" class="carousel__prev"><i class="fas fa-angle-left fa-5x"></i></div>
             <div @click="next" class="carousel__next"><i class="fas fa-angle-right fa-5x"></i></div>
             <ul class="carousel__thumbnails">
@@ -61,6 +72,12 @@
             this.active++
           }
         },
+      },
+      mounted(){
+        let that = this
+        setInterval(()=>{
+          that.next()
+        }, 4000)
       }
     })
 </script>
